@@ -53,7 +53,7 @@ export default function SearchForm() {
 
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: '#A9CCE3',
+        backgroundColor: 'white',
         margin: 10,
         padding: 10,
         borderRadius: 10,
