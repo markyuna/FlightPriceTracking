@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import {
   StyleSheet,
   SafeAreaView,
@@ -15,16 +16,17 @@ import { searchFlights } from './src/services/api';
 
 export default function App() {
    const [items, setItems] = useState([]);
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onSearch = async (data) => {
-    console.warn(data);
+    setLoading(true);
+    setItems([]);
 
     // get items form the backend
     const response = await searchFlights(data);
-    console.log(response);
 
     setItems(response.data);
+    setLoading(false);
   };
 
   return (
@@ -35,7 +37,13 @@ export default function App() {
       <SafeAreaView>
         <SearchForm onSearch={onSearch} />
 
-        {/* <FlightOptionItem flight={option1} /> */}
+        { loading && (
+          <View style={{ padding: 10 }}>
+            <ActivityIndicator size="large" color="#2471A7" />
+            <Text>Searching for the bestprices ...</Text>
+          </View>
+        )}
+
         <FlatList
           data={items}
           renderItem={({ item }) => <FlightOptionItem flight={item} />}
@@ -43,7 +51,7 @@ export default function App() {
         />
       </SafeAreaView>
 
-      {/* <StatusBar style="auto" /> */}
+      <StatusBar style="auto" />
     </LinearGradient>
   );
 }

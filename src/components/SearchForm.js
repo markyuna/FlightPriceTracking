@@ -10,7 +10,7 @@ export default function SearchForm({ onSearch }) {
     const [returnDate, setReturnDate] = useState(new Date());
 
     const onSearchPress = () => {
-        onSearchPress({ from, to, departDate, returnDate });
+        onSearch({ from, to, departDate, returnDate });
     }
 
     return (
