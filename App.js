@@ -1,25 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, FlatList} from 'react-native';
+import {
+  StyleSheet,
+  SafeAreaView,
+  FlatList,
+  ActivityIndicator,
+  Text,
+  View,
+} from 'react-native';
 import SearchForm from './src/components/SearchForm';
 import FlightOptionItem from './src/components/FlightOptionItem';
 import { LinearGradient } from 'expo-linear-gradient';
-import data from './data.json';
+import dummyData from './data.json';
 import { useState } from 'react';
-const option1 = data[0];
+import { searchFlights } from './src/services/api';
 
 export default function App() {
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(false);
+   const [items, setItems] = useState([]);
+  // const [loading, setLoading] = useState(false);
 
   const onSearch = async (data) => {
-    setLoading(true);
-    setItems([]);
+    console.warn(data);
 
     // get items form the backend
     const response = await searchFlights(data);
+    console.log(response);
 
     setItems(response.data);
-    setLoading(false);
   };
 
   return (
@@ -32,13 +37,13 @@ export default function App() {
 
         {/* <FlightOptionItem flight={option1} /> */}
         <FlatList
-          data={data}
+          data={items}
           renderItem={({ item }) => <FlightOptionItem flight={item} />}
           showsVerticalScrollIndicator={false}
         />
       </SafeAreaView>
 
-      <StatusBar style="auto" />
+      {/* <StatusBar style="auto" /> */}
     </LinearGradient>
   );
 }
