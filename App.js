@@ -38,8 +38,8 @@ export default function App() {
         <SearchForm onSearch={onSearch} />
 
         { loading && (
-          <View style={{ padding: 10 }}>
-            <ActivityIndicator size="large" color="#2471A7" />
+          <View style={{ flexDirection: 'row', padding: 10 }}>
+            <ActivityIndicator />
             <Text>Searching for the bestprices ...</Text>
           </View>
         )}
