@@ -1,8 +1,13 @@
 const puppeteer = require('puppeteer-core');
 const { openDevtools } = require('./util');
 
-const SBR_WS_ENDPOINT =
-  'wss://brd-customer-hl_1f5cea25-zone-flight_prices:xv6mdnb5qfj0@brd.superproxy.io:9222';
+const SBR_WS_ENDPOINT = process.env.BRIGHT_DATA_WS_ENDPOINT;
+
+if (!SBR_WS_ENDPOINT) {
+  throw new Error(
+    'Missing BRIGHT_DATA_WS_ENDPOINT env var. Set it to your Bright Data Scraping Browser WebSocket endpoint.'
+  );
+}
 
   async function parseRoute(div) {
     const airlineSpan = await div.$('[class^="LogoImage_container"] span');
